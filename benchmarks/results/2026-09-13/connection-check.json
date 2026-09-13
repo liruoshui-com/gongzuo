@@ -1,0 +1,17 @@
+{
+  "status": "returned",
+  "httpStatus": 200,
+  "model": "deepseek-flash",
+  "inputTokens": 267,
+  "outputTokens": 16,
+  "cachedTokens": 0,
+  "toolProtocol": true,
+  "provider": "DeepSeek official",
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "at": "2026-09-13T08:22:45.447Z",
+  "durationMs": 809,
+  "requests": 1,
+  "outputLimit": 128,
+  "thinking": "disabled",
+  "containsCredential": false
+}

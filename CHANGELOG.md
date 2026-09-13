@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add reproducible live DeepSeek context-strategy experiments, synthetic fixtures, browser checks and public request ledgers; retain incomplete and negative results.
+- Report 56 requests / 237,858 tokens, with mixed resource outcomes and explicit quality limitations.
+- Add 51 labeled structural context cases and tests for cumulative budget protection; the production engine defaults remain unchanged.
+
 ## 0.3.0 — 2026-09-13
 
 - Add local context preflight and per-request metadata across Responses, Chat Completions and Messages using the same request builder as execution.

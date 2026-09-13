@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-13",
+  "provider": "DeepSeek official",
+  "requestedModel": "deepseek-flash",
+  "purpose": "Fixed-budget mechanism pilot; not an equal-quality completion or novice productivity claim",
+  "total": {
+    "requests": 56,
+    "inputTokens": 202758,
+    "outputTokens": 35100,
+    "knownInputTokens": 202758,
+    "knownOutputTokens": 35100,
+    "totalTokens": 237858,
+    "unknownUsageRequests": 0,
+    "cachedTokens": 160640,
+    "estimatedCny": 0.18573079999999997
+  },
+  "authorizedBudgetCny": 5,
+  "conservativeUsedCny": 0.6863160000000001,
+  "pairs": [
+    {
+      "fixtureId": "research-plans",
+      "phasesMatched": true,
+      "workflowCompleted": false,
+      "automatedQualityMatched": true,
+      "comparisonScope": "budget-limited-resource-difference",
+      "tokenReductionPercent": -2.935420743639927,
+      "timeReductionPercent": 2.3781687614606417,
+      "qualityConfirmed": false
+    },
+    {
+      "fixtureId": "office-csv",
+      "phasesMatched": true,
+      "workflowCompleted": false,
+      "automatedQualityMatched": true,
+      "comparisonScope": "budget-limited-resource-difference",
+      "tokenReductionPercent": 16.667978589420652,
+      "timeReductionPercent": 6.4203696252504106,
+      "qualityConfirmed": false
+    },
+    {
+      "fixtureId": "learning-product",
+      "phasesMatched": true,
+      "workflowCompleted": false,
+      "automatedQualityMatched": true,
+      "comparisonScope": "budget-limited-resource-difference",
+      "tokenReductionPercent": 2.971947041940559,
+      "timeReductionPercent": -23.96356727790363,
+      "qualityConfirmed": false
+    }
+  ],
+  "context": {
+    "taskRequests": 55,
+    "requirementChecks": 245,
+    "includedRequirementChecks": 245,
+    "pinnedRequirementChecks": 80,
+    "findings": {
+      "context-growth": 4
+    },
+    "structuralCases": 51,
+    "structuralCasesPassed": 51,
+    "additionalModelRequests": 0,
+    "scope": "Input inclusion and synthetic structural detection, not comprehension or compliance"
+  },
+  "pinnedOverhead": [
+    {
+      "fixture": "research-plans",
+      "pins": 1,
+      "textCharacters": 30,
+      "requestAddedCharacters": 78,
+      "requestAddedBytes": 130,
+      "addedTokens": null,
+      "units": "UTF-16 characters and UTF-8 serialized bytes, compared with an empty pinnedRequirements list"
+    },
+    {
+      "fixture": "office-csv",
+      "pins": 1,
+      "textCharacters": 31,
+      "requestAddedCharacters": 79,
+      "requestAddedBytes": 141,
+      "addedTokens": null,
+      "units": "UTF-16 characters and UTF-8 serialized bytes, compared with an empty pinnedRequirements list"
+    },
+    {
+      "fixture": "learning-product",
+      "pins": 2,
+      "textCharacters": 66,
+      "requestAddedCharacters": 148,
+      "requestAddedBytes": 254,
+      "addedTokens": null,
+      "units": "UTF-16 characters and UTF-8 serialized bytes, compared with an empty pinnedRequirements list"
+    }
+  ],
+  "manualReview": {
+    "blinded": false,
+    "humanReview": false,
+    "accepted": null,
+    "notes": "See docs/benchmark.md; agent review is separate from the unchanged preregistered automated checks."
+  },
+  "files": [
+    {
+      "name": "pilot.json",
+      "sha256": "acfce8eff23cbe049970fed63dfe4e60641320c0b0151ff55df54ef2c6bccf46"
+    },
+    {
+      "name": "product-complete.json",
+      "sha256": "5a68c17608a31fd799d148424f01f819d0fb9a52e8dfef80d0048e3f71f2c33b"
+    },
+    {
+      "name": "pilot-workspace.json",
+      "sha256": "0b173c0ce4451542747f543e1984fdf695d71cc7260b714bf8dfdc39aaa3e921"
+    },
+    {
+      "name": "product-workspace.json",
+      "sha256": "7c41f111953f00215f6c363bc8f52d92884b162f4d01fa60093089da1bfa883b"
+    },
+    {
+      "name": "context-results.json",
+      "sha256": "2937a25c6ffcf9e37aa69a706a998c3ac960dca00ac7142a66e06712595abde8"
+    },
+    {
+      "name": "connection-check.json",
+      "sha256": "c5941f35e2572e7696a574b780aa4400305ddb47a5aa43017188ce0697c0d2e2"
+    }
+  ]
+}

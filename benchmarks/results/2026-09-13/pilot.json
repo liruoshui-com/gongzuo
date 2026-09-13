@@ -1,0 +1,2146 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-13T08:37:14.565Z",
+  "status": "stopped",
+  "config": {
+    "provider": "chat",
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "maxCalls": 4,
+    "maxOutputTokens": 4096,
+    "tokenBudget": 24000,
+    "thinking": "disabled",
+    "temperature": 0
+  },
+  "prices": {
+    "checkedAt": "2026-09-13",
+    "currency": "CNY",
+    "unit": "per million tokens",
+    "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "peak": {
+      "input": 2,
+      "cached": 0.04,
+      "output": 8
+    },
+    "offPeak": {
+      "input": 1,
+      "cached": 0.02,
+      "output": 4
+    }
+  },
+  "instructionsHash": "3de4227eb022b1d103780e3b9a3137db35de98b6ad23f9b1be3a65ac2584bf65",
+  "toolsHash": "93d2422dba7998aea69e08f6e58b07d5366f7fe04e8bad7def94093cbfc335c2",
+  "fixtureHash": "eb25bc32d2473459e60636b0f0faaa12c26738bf7a236513fc2cb5c05aa8454b",
+  "contextVariation": "Only inline material/artifact content. Same feedback trimming, pins, tools, instructions, decoding and phase budgets.",
+  "sample": "3 tasks × 2 conditions × initial + fixed revision, one repeat",
+  "humanTimeMeasured": false,
+  "manualQualityAccepted": null,
+  "guard": {
+    "maxCny": 4.95,
+    "maxRequests": 40,
+    "requests": 40,
+    "conservativeUsedCny": 0.4245900000000002,
+    "unknownUsage": false,
+    "stoppedReason": "request-or-reserve-limit"
+  },
+  "runs": [
+    {
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "order": 1,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "review",
+          "executionSeconds": 8.599110199999998,
+          "validationSeconds": 0.003199300000000221,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 decision.json",
+                "passed": true
+              },
+              {
+                "label": "已交付 建议.md",
+                "passed": true
+              },
+              {
+                "label": "决策 JSON 可解析",
+                "passed": true
+              },
+              {
+                "label": "决策字段 recommendation",
+                "passed": true
+              },
+              {
+                "label": "决策字段 monthlyCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 annualizedCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 retentionDays",
+                "passed": true
+              },
+              {
+                "label": "决策字段 budgetCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 eligiblePlanExists",
+                "passed": true
+              },
+              {
+                "label": "引用编号完整且没有虚构来源",
+                "passed": true
+              },
+              {
+                "label": "报告包含两方案的明确事实（语义关系待盲评）",
+                "passed": true
+              },
+              {
+                "label": "报告保留三个来源标记",
+                "passed": true
+              },
+              {
+                "label": "简洁报告不超过约定字符数",
+                "passed": true
+              },
+              {
+                "label": "年化值与月费、预算的硬约束相符",
+                "passed": true
+              },
+              {
+                "label": "报告提示年化为估算并拒绝年付承诺（关键词检查）",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 3,
+            "personalRequirementsTotal": 3,
+            "manualAccepted": null,
+            "semanticAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "盲评：引用是否真正支持相关句子；是否把资料声明误写为实测；风险是否真实相关；年化费用是否明确为估算；中文表达是否适合非技术同事。自动关键词检查不能代替这些判断。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 2
+        },
+        {
+          "phase": "revision",
+          "status": "review",
+          "executionSeconds": 8.886944900000001,
+          "validationSeconds": 0.004208399999995891,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 decision.json",
+                "passed": true
+              },
+              {
+                "label": "decision.json 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 建议.md",
+                "passed": true
+              },
+              {
+                "label": "建议.md 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "决策 JSON 可解析",
+                "passed": true
+              },
+              {
+                "label": "决策字段 recommendation",
+                "passed": true
+              },
+              {
+                "label": "决策字段 monthlyCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 annualizedCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 retentionDays",
+                "passed": true
+              },
+              {
+                "label": "决策字段 budgetCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 eligiblePlanExists",
+                "passed": true
+              },
+              {
+                "label": "引用编号完整且没有虚构来源",
+                "passed": true
+              },
+              {
+                "label": "报告包含两方案的明确事实（语义关系待盲评）",
+                "passed": true
+              },
+              {
+                "label": "报告保留三个来源标记",
+                "passed": true
+              },
+              {
+                "label": "简洁报告不超过约定字符数",
+                "passed": true
+              },
+              {
+                "label": "年化值与月费、预算的硬约束相符",
+                "passed": true
+              },
+              {
+                "label": "报告提示年化为估算并拒绝年付承诺（关键词检查）",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 3,
+            "personalRequirementsTotal": 3,
+            "manualAccepted": null,
+            "semanticAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "盲评：引用是否真正支持相关句子；是否把资料声明误写为实测；风险是否真实相关；年化费用是否明确为估算；中文表达是否适合非技术同事。自动关键词检查不能代替这些判断。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 4
+        }
+      ],
+      "executionSeconds": 17.4860551,
+      "validationSeconds": 0.007407699999996112,
+      "usage": {
+        "requests": 6,
+        "inputTokens": 21171,
+        "outputTokens": 3357,
+        "knownInputTokens": 21171,
+        "knownOutputTokens": 3357,
+        "totalTokens": 24528,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 15616,
+        "estimatedCny": 0.01929532
+      }
+    },
+    {
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "order": 2,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "review",
+          "executionSeconds": 9.229457300000002,
+          "validationSeconds": 0.002593399999997928,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 decision.json",
+                "passed": true
+              },
+              {
+                "label": "已交付 建议.md",
+                "passed": true
+              },
+              {
+                "label": "决策 JSON 可解析",
+                "passed": true
+              },
+              {
+                "label": "决策字段 recommendation",
+                "passed": true
+              },
+              {
+                "label": "决策字段 monthlyCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 annualizedCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 retentionDays",
+                "passed": true
+              },
+              {
+                "label": "决策字段 budgetCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 eligiblePlanExists",
+                "passed": true
+              },
+              {
+                "label": "引用编号完整且没有虚构来源",
+                "passed": true
+              },
+              {
+                "label": "报告包含两方案的明确事实（语义关系待盲评）",
+                "passed": true
+              },
+              {
+                "label": "报告保留三个来源标记",
+                "passed": true
+              },
+              {
+                "label": "简洁报告不超过约定字符数",
+                "passed": true
+              },
+              {
+                "label": "年化值与月费、预算的硬约束相符",
+                "passed": true
+              },
+              {
+                "label": "报告提示年化为估算并拒绝年付承诺（关键词检查）",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 3,
+            "personalRequirementsTotal": 3,
+            "manualAccepted": null,
+            "semanticAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "盲评：引用是否真正支持相关句子；是否把资料声明误写为实测；风险是否真实相关；年化费用是否明确为估算；中文表达是否适合非技术同事。自动关键词检查不能代替这些判断。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 2
+        },
+        {
+          "phase": "revision",
+          "status": "blocked",
+          "executionSeconds": 7.840749900000002,
+          "validationSeconds": 0.003779199999997218,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 decision.json",
+                "passed": true
+              },
+              {
+                "label": "decision.json 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 建议.md",
+                "passed": true
+              },
+              {
+                "label": "建议.md 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "决策 JSON 可解析",
+                "passed": true
+              },
+              {
+                "label": "决策字段 recommendation",
+                "passed": true
+              },
+              {
+                "label": "决策字段 monthlyCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 annualizedCostCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 retentionDays",
+                "passed": true
+              },
+              {
+                "label": "决策字段 budgetCny",
+                "passed": true
+              },
+              {
+                "label": "决策字段 eligiblePlanExists",
+                "passed": true
+              },
+              {
+                "label": "引用编号完整且没有虚构来源",
+                "passed": true
+              },
+              {
+                "label": "报告包含两方案的明确事实（语义关系待盲评）",
+                "passed": true
+              },
+              {
+                "label": "报告保留三个来源标记",
+                "passed": true
+              },
+              {
+                "label": "简洁报告不超过约定字符数",
+                "passed": true
+              },
+              {
+                "label": "年化值与月费、预算的硬约束相符",
+                "passed": true
+              },
+              {
+                "label": "报告提示年化为估算并拒绝年付承诺（关键词检查）",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 3,
+            "personalRequirementsTotal": 3,
+            "manualAccepted": null,
+            "semanticAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "盲评：引用是否真正支持相关句子；是否把资料声明误写为实测；风险是否真实相关；年化费用是否明确为估算；中文表达是否适合非技术同事。自动关键词检查不能代替这些判断。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 4
+        }
+      ],
+      "executionSeconds": 17.070207200000006,
+      "validationSeconds": 0.006372599999995145,
+      "usage": {
+        "requests": 8,
+        "inputTokens": 22114,
+        "outputTokens": 3134,
+        "knownInputTokens": 22114,
+        "knownOutputTokens": 3134,
+        "totalTokens": 25248,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 17792,
+        "estimatedCny": 0.01721384
+      }
+    },
+    {
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "order": 3,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "blocked",
+          "executionSeconds": 5.029977599999999,
+          "validationSeconds": 0.005662400000001071,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 清洗结果.csv",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组汇总.csv",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组图表.svg",
+                "passed": true
+              },
+              {
+                "label": "已交付 数据检查.md",
+                "passed": true
+              },
+              {
+                "label": "清洗 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "分组 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "清洗列顺序与全部记录精确符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "前导零编号保持原样",
+                "passed": true
+              },
+              {
+                "label": "两条重复记录均保留",
+                "passed": true
+              },
+              {
+                "label": "未知工时继续保留空值",
+                "passed": true
+              },
+              {
+                "label": "分组列与数值汇总符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "分组总工时为 17",
+                "passed": true
+              },
+              {
+                "label": "图表有 SVG 结构与本阶段分组（视觉待盲评）",
+                "passed": true
+              },
+              {
+                "label": "检查说明声明空行和重复处理",
+                "passed": true
+              },
+              {
+                "label": "检查说明列出一条空记录和一条重复记录",
+                "passed": true
+              },
+              {
+                "label": "原始 CSV 材料保持不变",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 4,
+            "personalRequirementsTotal": 4,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "检查图表的视觉可读性、数据检查说明是否容易理解，以及未测到的电子表格软件兼容性。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 4
+        },
+        {
+          "phase": "revision",
+          "status": "blocked",
+          "executionSeconds": 5.349340099999994,
+          "validationSeconds": 0.012398100000005798,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 清洗结果.csv",
+                "passed": true
+              },
+              {
+                "label": "清洗结果.csv 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组汇总.csv",
+                "passed": true
+              },
+              {
+                "label": "分组汇总.csv 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组图表.svg",
+                "passed": true
+              },
+              {
+                "label": "分组图表.svg 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 数据检查.md",
+                "passed": true
+              },
+              {
+                "label": "数据检查.md 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "清洗 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "分组 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "清洗列顺序与全部记录精确符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "前导零编号保持原样",
+                "passed": true
+              },
+              {
+                "label": "两条重复记录均保留",
+                "passed": true
+              },
+              {
+                "label": "未知工时继续保留空值",
+                "passed": true
+              },
+              {
+                "label": "分组列与数值汇总符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "分组总工时为 17",
+                "passed": true
+              },
+              {
+                "label": "图表有 SVG 结构与本阶段分组（视觉待盲评）",
+                "passed": true
+              },
+              {
+                "label": "检查说明声明空行和重复处理",
+                "passed": true
+              },
+              {
+                "label": "检查说明列出一条空记录和一条重复记录",
+                "passed": true
+              },
+              {
+                "label": "原始 CSV 材料保持不变",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 4,
+            "personalRequirementsTotal": 4,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "检查图表的视觉可读性、数据检查说明是否容易理解，以及未测到的电子表格软件兼容性。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 8
+        }
+      ],
+      "executionSeconds": 10.379317699999993,
+      "validationSeconds": 0.01806050000000687,
+      "usage": {
+        "requests": 8,
+        "inputTokens": 19733,
+        "outputTokens": 1440,
+        "knownInputTokens": 19733,
+        "knownOutputTokens": 1440,
+        "totalTokens": 21173,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 16000,
+        "estimatedCny": 0.009812999999999999
+      }
+    },
+    {
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "order": 4,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "blocked",
+          "executionSeconds": 5.567291399999987,
+          "validationSeconds": 0.007823100000008708,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 清洗结果.csv",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组汇总.csv",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组图表.svg",
+                "passed": true
+              },
+              {
+                "label": "已交付 数据检查.md",
+                "passed": true
+              },
+              {
+                "label": "清洗 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "分组 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "清洗列顺序与全部记录精确符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "前导零编号保持原样",
+                "passed": true
+              },
+              {
+                "label": "两条重复记录均保留",
+                "passed": true
+              },
+              {
+                "label": "未知工时继续保留空值",
+                "passed": true
+              },
+              {
+                "label": "分组列与数值汇总符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "分组总工时为 17",
+                "passed": true
+              },
+              {
+                "label": "图表有 SVG 结构与本阶段分组（视觉待盲评）",
+                "passed": true
+              },
+              {
+                "label": "检查说明声明空行和重复处理",
+                "passed": true
+              },
+              {
+                "label": "检查说明列出一条空记录和一条重复记录",
+                "passed": true
+              },
+              {
+                "label": "原始 CSV 材料保持不变",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 4,
+            "personalRequirementsTotal": 4,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "检查图表的视觉可读性、数据检查说明是否容易理解，以及未测到的电子表格软件兼容性。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 4
+        },
+        {
+          "phase": "revision",
+          "status": "blocked",
+          "executionSeconds": 5.524137000000002,
+          "validationSeconds": 0.013737399999998161,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 清洗结果.csv",
+                "passed": true
+              },
+              {
+                "label": "清洗结果.csv 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组汇总.csv",
+                "passed": true
+              },
+              {
+                "label": "分组汇总.csv 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 分组图表.svg",
+                "passed": true
+              },
+              {
+                "label": "分组图表.svg 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "已交付 数据检查.md",
+                "passed": true
+              },
+              {
+                "label": "数据检查.md 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "清洗 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "分组 CSV 可解析",
+                "passed": true
+              },
+              {
+                "label": "清洗列顺序与全部记录精确符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "前导零编号保持原样",
+                "passed": true
+              },
+              {
+                "label": "两条重复记录均保留",
+                "passed": true
+              },
+              {
+                "label": "未知工时继续保留空值",
+                "passed": true
+              },
+              {
+                "label": "分组列与数值汇总符合独立真值",
+                "passed": true
+              },
+              {
+                "label": "分组总工时为 17",
+                "passed": true
+              },
+              {
+                "label": "图表有 SVG 结构与本阶段分组（视觉待盲评）",
+                "passed": true
+              },
+              {
+                "label": "检查说明声明空行和重复处理",
+                "passed": true
+              },
+              {
+                "label": "检查说明列出一条空记录和一条重复记录",
+                "passed": true
+              },
+              {
+                "label": "原始 CSV 材料保持不变",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 4,
+            "personalRequirementsTotal": 4,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "检查图表的视觉可读性、数据检查说明是否容易理解，以及未测到的电子表格软件兼容性。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 8
+        }
+      ],
+      "executionSeconds": 11.09142839999999,
+      "validationSeconds": 0.02156050000000687,
+      "usage": {
+        "requests": 8,
+        "inputTokens": 24110,
+        "outputTokens": 1298,
+        "knownInputTokens": 24110,
+        "knownOutputTokens": 1298,
+        "totalTokens": 25408,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 19968,
+        "estimatedCny": 0.009733359999999998
+      }
+    },
+    {
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "order": 5,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "review",
+          "executionSeconds": 13.036045400000003,
+          "validationSeconds": 1.0479161000000021,
+          "quality": {
+            "automatedPassed": false,
+            "checks": [
+              {
+                "label": "已交付 学习记录.html",
+                "passed": true
+              },
+              {
+                "label": "HTML 在真实本地 origin 加载",
+                "passed": true
+              },
+              {
+                "label": "输入与列表有约定的可访问名称",
+                "passed": false,
+                "detail": "缺少唯一控件 学习日期"
+              },
+              {
+                "label": "离线运行不依赖外部资源",
+                "passed": true
+              },
+              {
+                "label": "产品运行没有未捕获脚本错误",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 1,
+            "personalRequirementsTotal": 1,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [
+              "输入与列表有约定的可访问名称"
+            ],
+            "manualRubric": "盲评视觉可读性、温和语气和个性化程度；本自动检查不覆盖从其他旧版本迁移 localStorage 数据。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 1
+        },
+        {
+          "phase": "revision",
+          "status": "review",
+          "executionSeconds": 13.608876000000004,
+          "validationSeconds": 0.8499281000000046,
+          "quality": {
+            "automatedPassed": false,
+            "checks": [
+              {
+                "label": "已交付 学习记录.html",
+                "passed": true
+              },
+              {
+                "label": "学习记录.html 有修改版本",
+                "passed": true
+              },
+              {
+                "label": "HTML 在真实本地 origin 加载",
+                "passed": true
+              },
+              {
+                "label": "输入与列表有约定的可访问名称",
+                "passed": false,
+                "detail": "缺少唯一控件 学习日期"
+              },
+              {
+                "label": "离线运行不依赖外部资源",
+                "passed": true
+              },
+              {
+                "label": "产品运行没有未捕获脚本错误",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 1,
+            "personalRequirementsTotal": 1,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [
+              "输入与列表有约定的可访问名称"
+            ],
+            "manualRubric": "盲评视觉可读性、温和语气和个性化程度；本自动检查不覆盖从其他旧版本迁移 localStorage 数据。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 2
+        }
+      ],
+      "executionSeconds": 26.64492140000001,
+      "validationSeconds": 1.8978442000000069,
+      "usage": {
+        "requests": 7,
+        "inputTokens": 39351,
+        "outputTokens": 7604,
+        "knownInputTokens": 39351,
+        "knownOutputTokens": 7604,
+        "totalTokens": 46955,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 30080,
+        "estimatedCny": 0.0402886
+      }
+    },
+    {
+      "fixtureId": "learning-product",
+      "condition": "on-demand",
+      "order": 6,
+      "phases": [
+        {
+          "phase": "initial",
+          "status": "blocked",
+          "executionSeconds": 10.204186000000002,
+          "validationSeconds": 1.292804600000003,
+          "quality": {
+            "automatedPassed": true,
+            "checks": [
+              {
+                "label": "已交付 学习记录.html",
+                "passed": true
+              },
+              {
+                "label": "HTML 在真实本地 origin 加载",
+                "passed": true
+              },
+              {
+                "label": "输入与列表有约定的可访问名称",
+                "passed": true
+              },
+              {
+                "label": "未把示例内容冒充用户记录",
+                "passed": true
+              },
+              {
+                "label": "真实新增两条记录并显示历史日期与标签",
+                "passed": true
+              },
+              {
+                "label": "刷新后两条真实记录仍保留",
+                "passed": true
+              },
+              {
+                "label": "删除对应记录并在刷新后保持删除",
+                "passed": true
+              },
+              {
+                "label": "可见界面没有打卡惩罚或连续天数文案（待盲评）",
+                "passed": true
+              },
+              {
+                "label": "保存本次产品检查截图",
+                "passed": true
+              },
+              {
+                "label": "离线运行不依赖外部资源",
+                "passed": true
+              },
+              {
+                "label": "产品运行没有未捕获脚本错误",
+                "passed": true
+              }
+            ],
+            "personalRequirementsPassed": 5,
+            "personalRequirementsTotal": 5,
+            "manualAccepted": null,
+            "qualityUnknown": false,
+            "criticalFailures": [],
+            "manualRubric": "盲评视觉可读性、温和语气和个性化程度；本自动检查不覆盖从其他旧版本迁移 localStorage 数据。",
+            "scope": "固定合成任务的自动检查；人工质量、未测功能和使用者操作耗时未获验证。"
+          },
+          "artifactCount": 1
+        }
+      ],
+      "executionSeconds": 10.204186000000002,
+      "validationSeconds": 1.292804600000003,
+      "usage": {
+        "requests": 3,
+        "inputTokens": 6024,
+        "outputTokens": 3115,
+        "knownInputTokens": 6024,
+        "knownOutputTokens": 3115,
+        "totalTokens": 9139,
+        "unknownUsageRequests": 0,
+        "cachedTokens": 5248,
+        "estimatedCny": 0.013340959999999999
+      }
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:35.606Z",
+      "status": "returned",
+      "requestFingerprint": "738093a0350e07f3e3257043d7d2ff2bed84172e0ba5789c690f340a38ff4690",
+      "requestCharacters": 4768,
+      "requestBytes": 7878,
+      "usage": {
+        "input": 2113,
+        "output": 305,
+        "cached": 0,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1685,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.6817114000000002,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "read_material",
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 2,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:37.329Z",
+      "status": "returned",
+      "requestFingerprint": "b73fb2a9e9632a746596eb3a80c700988e59167cfe816492067c65cfec4931bb",
+      "requestCharacters": 6796,
+      "requestBytes": 10974,
+      "usage": {
+        "input": 2886,
+        "output": 914,
+        "cached": 2304,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 4360,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 4.3541815999999995,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact",
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 3,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:41.715Z",
+      "status": "returned",
+      "requestFingerprint": "494e13a7e26503d02202d5a73c0ac9bb316b3912c647798ba3fd9e8bcc01df1e",
+      "requestCharacters": 9929,
+      "requestBytes": 15205,
+      "usage": {
+        "input": 4014,
+        "output": 371,
+        "cached": 3712,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 2450,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 2.4478871999999976,
+      "incomplete": false,
+      "toolNames": []
+    },
+    {
+      "id": 4,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:37:44.204Z",
+      "status": "returned",
+      "requestFingerprint": "16342c8511b7687ac25e28faa2008976b8aed2a83304f16fefe46b3aced2ca3d",
+      "requestCharacters": 7147,
+      "requestBytes": 11271,
+      "usage": {
+        "input": 3110,
+        "output": 298,
+        "cached": 1408,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 2093,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 2.087452400000002,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "read_material",
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 5,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:37:46.314Z",
+      "status": "returned",
+      "requestFingerprint": "d8af88421a93ad18853ec3cd59ed38adecae32725f05f459d9a4652599f27a6b",
+      "requestCharacters": 9159,
+      "requestBytes": 14311,
+      "usage": {
+        "input": 3876,
+        "output": 1079,
+        "cached": 3328,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 4389,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 4.384253799999999,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact",
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 6,
+      "fixtureId": "research-plans",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:37:50.716Z",
+      "status": "returned",
+      "requestFingerprint": "73984d2366b2affa53aa08c8a9e4803aff58fe23bcebb257e22133021114fa0a",
+      "requestCharacters": 12607,
+      "requestBytes": 19165,
+      "usage": {
+        "input": 5172,
+        "output": 390,
+        "cached": 4864,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 2341,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 2.336751599999996,
+      "incomplete": false,
+      "toolNames": []
+    },
+    {
+      "id": 7,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:53.109Z",
+      "status": "returned",
+      "requestFingerprint": "10f626b94e30325f81ee60bd855406bf54d54b96285293abbffdc55d21689662",
+      "requestCharacters": 4091,
+      "requestBytes": 6275,
+      "usage": {
+        "input": 1715,
+        "output": 207,
+        "cached": 1408,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1500,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.491832199999997,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 8,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:54.639Z",
+      "status": "returned",
+      "requestFingerprint": "a970fb8a7ea338f0e847b4e245a15b68abb1c64b207f4d14cb5feaad050ff2c1",
+      "requestCharacters": 5745,
+      "requestBytes": 8855,
+      "usage": {
+        "input": 2377,
+        "output": 114,
+        "cached": 1920,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1296,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.2874972999999954,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan"
+      ]
+    },
+    {
+      "id": 9,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:37:55.955Z",
+      "status": "returned",
+      "requestFingerprint": "95f723ff19ca0aa036e239b6589aef9416ea93cf574757ad65ba48442203a8e9",
+      "requestCharacters": 6152,
+      "requestBytes": 9398,
+      "usage": {
+        "input": 2508,
+        "output": 933,
+        "cached": 2304,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 4068,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 4.0577684000000005,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact",
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 10,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:00.043Z",
+      "status": "returned",
+      "requestFingerprint": "e3f0aea023efed90fa7429c943f274c3322717edcbd62ab5013695b818d939dc",
+      "requestCharacters": 9307,
+      "requestBytes": 13691,
+      "usage": {
+        "input": 3660,
+        "output": 376,
+        "cached": 2432,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 2233,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 2.2272249999999985,
+      "incomplete": false,
+      "toolNames": []
+    },
+    {
+      "id": 11,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:02.348Z",
+      "status": "returned",
+      "requestFingerprint": "7a242758524aa8c7bff1174f421e8b982690ca747897adebd4df234cd374687e",
+      "requestCharacters": 4563,
+      "requestBytes": 6997,
+      "usage": {
+        "input": 1933,
+        "output": 211,
+        "cached": 1408,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1479,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.4719064999999973,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 12,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:03.856Z",
+      "status": "returned",
+      "requestFingerprint": "b2cd2348c21b79bda0608e92f73f00ca36ff756c0826c57ebb7028223d92175f",
+      "requestCharacters": 6244,
+      "requestBytes": 9604,
+      "usage": {
+        "input": 2599,
+        "output": 146,
+        "cached": 2048,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 874,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 0.867118899999994,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 13,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:04.746Z",
+      "status": "returned",
+      "requestFingerprint": "35c93f064a665f935de59020727d6206b85242de206cf66c3986e27e2f02ae0a",
+      "requestCharacters": 8860,
+      "requestBytes": 13034,
+      "usage": {
+        "input": 3600,
+        "output": 105,
+        "cached": 2688,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1110,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1046002000000008,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan"
+      ]
+    },
+    {
+      "id": 14,
+      "fixtureId": "research-plans",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:05.868Z",
+      "status": "returned",
+      "requestFingerprint": "dc47defa001de08855807c6d74ee7438c357b006c5d47c42153f254bb59acdfc",
+      "requestCharacters": 9260,
+      "requestBytes": 13546,
+      "usage": {
+        "input": 3722,
+        "output": 1042,
+        "cached": 3584,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 4289,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 4.282022499999999,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact",
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 15,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:10.199Z",
+      "status": "returned",
+      "requestFingerprint": "968dd2f1eb263bc72cc5992e36cbdc27dc522556fa93c8a4eadd8b610b6e255c",
+      "requestCharacters": 3765,
+      "requestBytes": 5903,
+      "usage": {
+        "input": 1580,
+        "output": 151,
+        "cached": 1024,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1086,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.0810100999999994,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 16,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:11.312Z",
+      "status": "returned",
+      "requestFingerprint": "8551c4334337d0008d757ee6c2fb285948b9638b9253501584270b3a0a31fdf0",
+      "requestCharacters": 4983,
+      "requestBytes": 7545,
+      "usage": {
+        "input": 2023,
+        "output": 98,
+        "cached": 1664,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1199,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1922558999999964,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan"
+      ]
+    },
+    {
+      "id": 17,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:12.523Z",
+      "status": "returned",
+      "requestFingerprint": "f5d16efdf0ca46d9e7b4e83f218a580d89ffab85b6464dbd6ea260997d9b83d2",
+      "requestCharacters": 5384,
+      "requestBytes": 8092,
+      "usage": {
+        "input": 2138,
+        "output": 108,
+        "cached": 1920,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1115,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1104983000000066,
+      "incomplete": false,
+      "toolNames": [
+        "analyze_csv"
+      ]
+    },
+    {
+      "id": 18,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:13.649Z",
+      "status": "returned",
+      "requestFingerprint": "83b7c0af8bf321b40472141aec757d7034fb70581a6b1cd9008565a423d98599",
+      "requestCharacters": 6718,
+      "requestBytes": 9498,
+      "usage": {
+        "input": 2583,
+        "output": 144,
+        "cached": 2176,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1521,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.5167811000000002,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 19,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:15.237Z",
+      "status": "returned",
+      "requestFingerprint": "7736ae38f90c5187116b4c565f1228d70c67ff8a8532f146cc60bafd99d6d7af",
+      "requestCharacters": 4447,
+      "requestBytes": 6933,
+      "usage": {
+        "input": 1870,
+        "output": 157,
+        "cached": 1280,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1065,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.0604061000000002,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 20,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:16.318Z",
+      "status": "returned",
+      "requestFingerprint": "9f0e78f79f6ef37518a9e0dac4423007f1cf696feb4ef58f3a1de0c4651b0d40",
+      "requestCharacters": 5705,
+      "requestBytes": 8615,
+      "usage": {
+        "input": 2319,
+        "output": 273,
+        "cached": 1920,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1315,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.3106425999999993,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact",
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 21,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:17.655Z",
+      "status": "returned",
+      "requestFingerprint": "9dc2089edeea97ce4dfa6c86c1e052ed79c1ac7a29d31ac59f3d31a5fe12dc25",
+      "requestCharacters": 8570,
+      "requestBytes": 12119,
+      "usage": {
+        "input": 3322,
+        "output": 217,
+        "cached": 2560,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1100,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.0936103999999978,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "analyze_csv"
+      ]
+    },
+    {
+      "id": 22,
+      "fixtureId": "office-csv",
+      "condition": "on-demand",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:18.782Z",
+      "status": "returned",
+      "requestFingerprint": "96437e3b4062bb502441dd4804b5c4e61f886e80e134b5a9689f5c5a0a269951",
+      "requestCharacters": 10363,
+      "requestBytes": 14130,
+      "usage": {
+        "input": 3898,
+        "output": 292,
+        "cached": 3456,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1713,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.704973800000007,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact",
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 23,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:20.625Z",
+      "status": "returned",
+      "requestFingerprint": "bde8f384ee464d5090d812e65c2d6224e5ec65fbcd883250735e42784dbdb9ef",
+      "requestCharacters": 4250,
+      "requestBytes": 6812,
+      "usage": {
+        "input": 1833,
+        "output": 160,
+        "cached": 1280,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1412,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.4041567000000068,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 24,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:22.059Z",
+      "status": "returned",
+      "requestFingerprint": "1d90617932d6cd5f6a1f3f2752c984d4c2081eb30eeea46d7c2343d4a2a4371d",
+      "requestCharacters": 5508,
+      "requestBytes": 8494,
+      "usage": {
+        "input": 2285,
+        "output": 198,
+        "cached": 1920,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1623,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.6180560999999871,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "analyze_csv"
+      ]
+    },
+    {
+      "id": 25,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:23.708Z",
+      "status": "returned",
+      "requestFingerprint": "2c0f27885371ac1c16c5cecd196e8b7f933542c53f972d7da54e12202e4c0211",
+      "requestCharacters": 7194,
+      "requestBytes": 10398,
+      "usage": {
+        "input": 2842,
+        "output": 148,
+        "cached": 2432,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1194,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1900227000000014,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 26,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:24.936Z",
+      "status": "returned",
+      "requestFingerprint": "9a62d8f25521edf06da2264500b1169d8139f1674952446d5c873a7540c9690c",
+      "requestCharacters": 8180,
+      "requestBytes": 11522,
+      "usage": {
+        "input": 3177,
+        "output": 143,
+        "cached": 2944,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1201,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1931523000000015,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 27,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:26.210Z",
+      "status": "returned",
+      "requestFingerprint": "515e0cbdbf06ddd18114181768fbefecde0ed19adc316d2844b3c889a95f7739",
+      "requestCharacters": 6514,
+      "requestBytes": 10063,
+      "usage": {
+        "input": 2789,
+        "output": 163,
+        "cached": 1280,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1252,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.2463836999999913,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 28,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:27.484Z",
+      "status": "returned",
+      "requestFingerprint": "606b6c0c47b71fb511109b25adbb93d737f5957190fa9f9d1055054999df70e8",
+      "requestCharacters": 7783,
+      "requestBytes": 11760,
+      "usage": {
+        "input": 3244,
+        "output": 194,
+        "cached": 2944,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1413,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.4033654999999998,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "analyze_csv"
+      ]
+    },
+    {
+      "id": 29,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:28.923Z",
+      "status": "returned",
+      "requestFingerprint": "14f9cce81f8560582c49cb86dd2eb7f5abfeb9f52cd7cfb5d2488c8f38d29d36",
+      "requestCharacters": 9466,
+      "requestBytes": 13647,
+      "usage": {
+        "input": 3802,
+        "output": 145,
+        "cached": 3328,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1306,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.2969961000000039,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 30,
+      "fixtureId": "office-csv",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:30.255Z",
+      "status": "returned",
+      "requestFingerprint": "7159ab4a93e8c90820753468d39b738335a0c1a56c01ccaaee849f4aeef191fd",
+      "requestCharacters": 10456,
+      "requestBytes": 14775,
+      "usage": {
+        "input": 4138,
+        "output": 147,
+        "cached": 3840,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1407,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.3971544999999896,
+      "incomplete": false,
+      "toolNames": [
+        "read_artifact",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 31,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:31.759Z",
+      "status": "returned",
+      "requestFingerprint": "e88ba639628615106119fbd7cc907f4f4e2534b5a603e7c2a9249d876c6e4a4e",
+      "requestCharacters": 4461,
+      "requestBytes": 7449,
+      "usage": {
+        "input": 1916,
+        "output": 152,
+        "cached": 1024,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1439,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.4338243999999978,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 32,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:33.218Z",
+      "status": "returned",
+      "requestFingerprint": "472599e6f1c83a68f4c7558e759429bba5f748f864a669cc61d184f5e96d1ae0",
+      "requestCharacters": 5617,
+      "requestBytes": 9245,
+      "usage": {
+        "input": 2337,
+        "output": 98,
+        "cached": 2048,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 896,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 0.8867472000000125,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan"
+      ]
+    },
+    {
+      "id": 33,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:34.125Z",
+      "status": "returned",
+      "requestFingerprint": "283bf90a004def680d6756cafdcb3d40ba20bf8fe7e7e366e101e84d6a386fab",
+      "requestCharacters": 6015,
+      "requestBytes": 9777,
+      "usage": {
+        "input": 2452,
+        "output": 2898,
+        "cached": 2304,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 8289,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 8.285876900000003,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 34,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "initial",
+      "at": "2026-09-13T08:38:42.431Z",
+      "status": "returned",
+      "requestFingerprint": "0a645b100709539ae05d8375986036f41d59436b8b2c0b1806309f1d7c0ff802",
+      "requestCharacters": 17051,
+      "requestBytes": 21389,
+      "usage": {
+        "input": 5479,
+        "output": 429,
+        "cached": 5248,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 2309,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 2.3016889999999983,
+      "incomplete": false,
+      "toolNames": []
+    },
+    {
+      "id": 35,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:45.854Z",
+      "status": "returned",
+      "requestFingerprint": "92f858afaea1981a8dcae5b754efeb7c2403379dfd098d21fb7546770f4a1d96",
+      "requestCharacters": 15275,
+      "requestBytes": 19053,
+      "usage": {
+        "input": 5481,
+        "output": 198,
+        "cached": 1408,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1542,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.5335948000000061,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan",
+        "read_artifact"
+      ]
+    },
+    {
+      "id": 36,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:47.423Z",
+      "status": "returned",
+      "requestFingerprint": "907525a7b208fcd97880f148f71bdf817c043f5ec10d7c8e44a6facebc4a3d44",
+      "requestCharacters": 26505,
+      "requestBytes": 30881,
+      "usage": {
+        "input": 9086,
+        "output": 3386,
+        "cached": 5632,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 8819,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 8.811722699999999,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact"
+      ]
+    },
+    {
+      "id": 37,
+      "fixtureId": "learning-product",
+      "condition": "full-context",
+      "phase": "revision",
+      "at": "2026-09-13T08:38:56.270Z",
+      "status": "returned",
+      "requestFingerprint": "72dc506823c501dbf96ac916c5ffa93eb0e650c9be02f6a204d1e8bfc30d1db9",
+      "requestCharacters": 39674,
+      "requestBytes": 44666,
+      "usage": {
+        "input": 12600,
+        "output": 443,
+        "cached": 12416,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 3147,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 3.1375258999999933,
+      "incomplete": false,
+      "toolNames": []
+    },
+    {
+      "id": 38,
+      "fixtureId": "learning-product",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:39:00.314Z",
+      "status": "returned",
+      "requestFingerprint": "dab5efdd3652e79328b702d0c2ff551a1ba89ef0cb5c0d551c0d72408a911a5f",
+      "requestCharacters": 4036,
+      "requestBytes": 6384,
+      "usage": {
+        "input": 1687,
+        "output": 155,
+        "cached": 1408,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 1128,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 1.1230528000000048,
+      "incomplete": false,
+      "toolNames": [
+        "read_material",
+        "read_material"
+      ]
+    },
+    {
+      "id": 39,
+      "fixtureId": "learning-product",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:39:01.473Z",
+      "status": "returned",
+      "requestFingerprint": "249d13a83e928b0e480366463cfd20ab073e947d18d0476b7e63f4e0b4771c46",
+      "requestCharacters": 5211,
+      "requestBytes": 8199,
+      "usage": {
+        "input": 2111,
+        "output": 98,
+        "cached": 1792,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 983,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 0.9761434000000009,
+      "incomplete": false,
+      "toolNames": [
+        "set_plan"
+      ]
+    },
+    {
+      "id": 40,
+      "fixtureId": "learning-product",
+      "condition": "on-demand",
+      "phase": "initial",
+      "at": "2026-09-13T08:39:02.475Z",
+      "status": "returned",
+      "requestFingerprint": "7ac9989ce971db43daf610197324fb12bab70c8b2e83c9fc64f9cc16f3a793d9",
+      "requestCharacters": 5608,
+      "requestBytes": 8746,
+      "usage": {
+        "input": 2226,
+        "output": 2862,
+        "cached": 2048,
+        "cacheWrite": null,
+        "reasoning": null,
+        "durationMs": 8005,
+        "model": "deepseek-flash",
+        "requestId": null
+      },
+      "elapsedSeconds": 7.99857650000001,
+      "incomplete": false,
+      "toolNames": [
+        "deliver_artifact"
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "fixtureId": "research-plans",
+      "phasesMatched": true,
+      "tokenReductionPercent": -2.935420743639927,
+      "timeReductionPercent": 2.3781687614606417,
+      "qualityConfirmed": false
+    },
+    {
+      "fixtureId": "office-csv",
+      "phasesMatched": true,
+      "tokenReductionPercent": 16.667978589420652,
+      "timeReductionPercent": 6.4203696252504106,
+      "qualityConfirmed": false
+    },
+    {
+      "fixtureId": "learning-product",
+      "phasesMatched": false,
+      "tokenReductionPercent": null,
+      "timeReductionPercent": null,
+      "qualityConfirmed": false
+    }
+  ],
+  "setupRequests": [
+    {
+      "id": "connection-check",
+      "at": "2026-09-13T08:22:45.447Z",
+      "status": "returned",
+      "elapsedSeconds": 0.809,
+      "usage": {
+        "input": 267,
+        "output": 16,
+        "cached": 0
+      }
+    }
+  ],
+  "finishedAt": "2026-09-13T08:39:11.805Z",
+  "experimentTotal": {
+    "requests": 40,
+    "inputTokens": 132503,
+    "outputTokens": 19948,
+    "knownInputTokens": 132503,
+    "knownOutputTokens": 19948,
+    "totalTokens": 152451,
+    "unknownUsageRequests": 0,
+    "cachedTokens": 104704,
+    "estimatedCny": 0.10968507999999998
+  },
+  "total": {
+    "requests": 41,
+    "inputTokens": 132770,
+    "outputTokens": 19964,
+    "knownInputTokens": 132770,
+    "knownOutputTokens": 19964,
+    "totalTokens": 152734,
+    "unknownUsageRequests": 0,
+    "cachedTokens": 104704,
+    "estimatedCny": 0.11001607999999997
+  }
+}

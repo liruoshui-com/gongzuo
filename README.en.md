@@ -7,12 +7,12 @@
 
 A local AI task workspace for people who want useful results without becoming prompt experts.
 
-[中文](README.md) · [Getting started](#getting-started) · [Evaluation plan](docs/benchmark.md)
+[中文](README.md) · [Getting started](#getting-started) · [Evaluation data](docs/benchmark.md)
 </div>
 
 ![The actual task workspace before configuring a model](assets/overview.png)
 
-**Early preview, v0.3.0.** Adds local context health checks and pinned requirements. Provider adapters, task tools and artifact workflows are implemented. Tests use mock provider responses; live-provider task quality and token savings have **not** been demonstrated.
+**Early preview, v0.3.0.** Adds local context health checks and pinned requirements. Provider adapters, task tools and artifact workflows are implemented. Regression tests use mock providers. A small live DeepSeek context-strategy pilot is now available: token and latency results vary by task, and equal-quality completion savings have **not** been demonstrated.
 
 ## The goal
 
@@ -30,7 +30,7 @@ Help people finish research, writing, office and small product tasks with less t
 - Context preflight without a key or model call; request metadata shows omitted older feedback, included requirements and overlapping file reads. Important requirements can be pinned to subsequent requests.
 - Human reports distinguish an included requirement that was not followed from an omitted input. Metadata exports omit prompt bodies, API headers and model reasoning.
 
-Context still accumulates during a run; there is no automatic compaction, model routing or patch-based artifact editing yet. These mechanisms are a starting point, not evidence of measured savings.
+Context still accumulates during a run; there is no automatic compaction, model routing or patch-based artifact editing yet. The pilot measures fixed-budget resource use; it does not establish general savings or novice productivity gains.
 
 ## Getting started
 

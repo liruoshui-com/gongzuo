@@ -15,7 +15,9 @@
   "scripts": {
     "start": "node server.mjs",
     "check": "node scripts/check.mjs",
-    "test": "node --test tests/runtime.test.mjs tests/context-health.test.mjs tests/context-api.test.mjs"
+    "test": "node --test tests/runtime.test.mjs tests/context-health.test.mjs tests/context-api.test.mjs tests/benchmark.test.mjs",
+    "benchmark": "node benchmarks/run.mjs",
+    "benchmark:context": "node benchmarks/context-check.mjs"
   },
   "engines": { "node": ">=22" }
 }

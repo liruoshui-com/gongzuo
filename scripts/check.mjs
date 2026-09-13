@@ -1,6 +1,6 @@
 import {readdir} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
-const roots=['server.mjs','lib','dist','scripts','tests'];
+const roots=['server.mjs','lib','dist','scripts','tests','benchmarks'];
 async function walk(path){
   if(/\.(mjs|cjs|js)$/.test(path))return[path];
   const entries=await readdir(path,{withFileTypes:true});
