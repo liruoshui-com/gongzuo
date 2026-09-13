@@ -1,0 +1,20 @@
+name: Real task / 真实任务案例
+description: Share a task that should take fewer tokens or less rework.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Task and acceptance / 目标与完成标准
+      description: What do you want to achieve? What would make the result useful and distinctively yours?
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: Where is effort wasted? / 哪里最费时费 token？
+      description: Describe clarification, repeated context, retries, or revisions. Include measurements if available, and label estimates.
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Reproducible example / 可复现材料
+      description: Use invented or anonymized content. Do not attach API keys, private task exports, or third-party materials you cannot redistribute.

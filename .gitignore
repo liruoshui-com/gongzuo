@@ -1,0 +1,31 @@
+# Local credentials and user data
+.local-data/
+.env
+.env.*
+*.log
+node_modules/
+
+# Private research, previous prototypes and local work
+.openai/
+.sites-runtime/
+references/
+work/
+test-results/
+releases/
+scripts/package.ps1
+*.zip
+归集校验.csv
+项目文件说明.md
+验证记录.md
+
+# Publish only the reviewed documentation and assets
+docs/*
+!docs/guide.md
+!docs/benchmark.md
+!docs/roadmap.md
+assets/*
+!assets/logo.svg
+!assets/overview.png
+
+.DS_Store
+Thumbs.db

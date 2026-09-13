@@ -1,0 +1,17 @@
+name: Bug report / 问题反馈
+description: Help reproduce a problem using fake keys and invented data.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened? / 发生了什么？
+      description: Include expected and actual behavior. Do not include API keys or private task exports.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction / 复现步骤
+      placeholder: Node version, operating system, provider type, and a minimal example with invented data.
+    validations:
+      required: true

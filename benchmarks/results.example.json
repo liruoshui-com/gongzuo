@@ -1,0 +1,22 @@
+{
+  "status": "unmeasured-example",
+  "taskId": "product-01",
+  "method": "gongzuo",
+  "provider": null,
+  "modelVersion": null,
+  "runAt": null,
+  "toolsMatched": null,
+  "inputTokens": null,
+  "outputTokens": null,
+  "unknownUsageRequests": null,
+  "totalSeconds": null,
+  "userActiveSeconds": null,
+  "revisionRounds": null,
+  "correctnessScore": null,
+  "completenessScore": null,
+  "personalRequirementsScore": null,
+  "usabilityScore": null,
+  "accepted": null,
+  "criticalFailures": null,
+  "evidence": []
+}
