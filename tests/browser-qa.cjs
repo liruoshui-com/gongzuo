@@ -47,11 +47,56 @@ const listen=s=>new Promise(r=>s.listen(0,'127.0.0.1',r));
     const options=await page.locator('#artifact-select option').evaluateAll(xs=>xs.map(x=>({value:x.value,label:x.textContent})));await page.locator('#artifact-select').selectOption(options.find(x=>x.label.includes('v1')).value);assert.equal(await page.frameLocator('#artifact-content iframe').locator('#count').innerText(),'2');
         const htmlDownloadPromise=page.waitForEvent('download');await page.locator('.artifact-toolbar a').click();const htmlDownload=await htmlDownloadPromise;const exported=path.join(dir,'exported-tool.html');await htmlDownload.saveAs(exported);const standalone=await context.newPage();await standalone.goto(require('node:url').pathToFileURL(exported).href);assert.equal(await standalone.locator('#count').innerText(),'2');await standalone.locator('#add').click();await standalone.reload();assert.equal(await standalone.locator('#count').innerText(),'3');await standalone.close();await page.bringToFront();
     await page.locator('#toast').evaluate(e=>e.hidden=true);await page.screenshot({path:path.join(dir,'product-desktop.png'),fullPage:true});
+    // Inspection, pins and human review must not invoke the provider.
+    const callsBeforeHealth=count;
+    await page.locator('[data-tab="context"]').click();await page.locator('#context-record-picker').waitFor();
+    assert.equal(await page.locator('#context-record-picker option').count(),5);
+    const historyIds=await page.locator('#context-record-picker option').evaluateAll(xs=>xs.map(x=>x.value).filter(v=>v!=='preflight'));
+    await page.locator('#context-record-picker').selectOption(historyIds[0]);
+    await page.locator('[data-action="mark-context-review"][data-requirement="goal"]').click();
+    await page.locator('.ch-manual-review').waitFor();assert.match(await page.locator('.ch-manual-review').first().innerText(),/人工核对/);
+    // Populate realistic feedback overflow through the API, then repair it through the UI.
+    await page.evaluate(async()=>{
+      const id=document.querySelector('.task-nav.active').dataset.open;
+      let t=await fetch('/api/tasks/'+id).then(r=>r.json());
+      for(let i=0;i<12;i++){
+        const res=await fetch('/api/tasks/'+id+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:t.revision,message:'补充 '+(i+1)+'：分步检查，保留个人表达。'})});
+        if(!res.ok)throw new Error('fixture feedback failed');t=await res.json();
+      }
+    });
+    await page.reload();await page.locator('[data-tab="context"]').click();await page.locator('[data-action="pin-feedback"][data-index="0"]').waitFor();
+    assert.match(await page.locator('.ch-attention').innerText(),/第 1 条补充/);
+    await page.locator('[data-action="pin-feedback"][data-index="0"]').click();await page.locator('.ch-memory-list').waitFor();
+    assert.match(await page.locator('.ch-memory-list').innerText(),/保留原来的记录风格/);
+    assert.match(await page.locator('.ch-attention').innerText(),/已通过固定要求带入/);
+    assert.ok(!(await page.locator('.ch-findings').innerText()).includes('未进入'));
+    const requestCharsBefore=await page.locator('.ch-metrics dd').first().innerText();
+    await page.locator('#settings').click();await page.locator('[name="maxOutputTokens"]').fill('16000');await page.locator('#settings-form button[type="submit"]').click();
+    await page.waitForFunction(old=>document.querySelector('.ch-metrics dd')?.textContent!==old,requestCharsBefore);
+    const hostilePin='<img src=x onerror="window.healthXss=1"> 保留这项个人要求';
+    await page.locator('#memory-form [name="text"]').fill(hostilePin);await page.locator('#memory-form button').click();
+    await page.waitForFunction(()=>document.querySelectorAll('.ch-memory-list>li').length===2);
+    assert.equal(await page.evaluate(()=>window.healthXss),undefined);
+    await page.locator('.ch-memory-list>li').filter({hasText:hostilePin}).locator('[data-action="remove-memory"]').click();
+    await page.waitForFunction(()=>document.querySelectorAll('.ch-memory-list>li').length===1);
+    assert.equal(count,callsBeforeHealth,'context checks must not create model calls');
+    await page.locator('.ch-footer summary').click();
+    const healthDownloadPromise=page.waitForEvent('download');await page.locator('.ch-export').click();const healthDownload=await healthDownloadPromise;
+    const healthFile=path.join(dir,'context-health.json');await healthDownload.saveAs(healthFile);
+    const health=JSON.parse(await fs.readFile(healthFile,'utf8'));
+    assert.equal(health.extraModelCalls,0);assert.equal(health.records.length,4);assert.equal(health.reviews.length,1);
+    assert.equal(health.preflight.requirements.filter(r=>r.kind==='memory'&&r.status==='included').length,1);
+    assert.ok(!JSON.stringify(health).includes('保留原来的记录风格'));
+    assert.ok(!JSON.stringify(health).includes('fake-browser-'));
+    assert.ok(health.records.every(r=>r.inputTokens===20&&r.outputTokens===10));
+    await page.locator('#toast').evaluate(e=>e.hidden=true);await page.screenshot({path:path.join(dir,'context-desktop.png'),fullPage:true});
+    for(const width of [390,320]){await page.setViewportSize({width,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'context mobile page overflows');const tabBounds=await page.locator('[data-tab="context"]').boundingBox();assert.ok(tabBounds.x>=0&&tabBounds.x+tabBounds.width<=width,'context tab must be visible without horizontal scrolling');await page.screenshot({path:path.join(dir,`context-${width}.png`),fullPage:true});}
+    await page.locator('[data-tab="activity"]').click();
     for(const width of [390,320]){await page.setViewportSize({width,height:900});await page.frameLocator('#artifact-content iframe').locator('#count').waitFor();await page.locator('#artifact-content').evaluate(e=>e.scrollIntoView({block:'center'}));await page.waitForTimeout(180);await page.screenshot({path:path.join(dir,`product-${width}.png`),fullPage:true});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'mobile page overflows');}
     await page.setViewportSize({width:1440,height:1100});await page.evaluate(()=>document.documentElement.style.fontSize='200%');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'large font page overflows');
     await page.evaluate(()=>document.documentElement.style.fontSize='');await page.locator('#new-task').click();await page.locator('[name="goal"]').fill('<img src=x onerror="window.pwned=1"> 我的真实任务');await page.locator('#create-form button[type="submit"]').click();await page.locator('#deliveries').waitFor();assert.equal(await page.evaluate(()=>window.pwned),undefined);assert.match(await page.locator('h1').innerText(),/<img/);
     assert.deepEqual(errors,[]);
-    await fs.writeFile(path.join(dir,'result.json'),JSON.stringify({passed:true,checks:['four-provider-key-only-setup','key-masking','csv-real-processing','download','task-refresh','model-tool-loop-mock','html-isolated-preview','preview-persistence','version-isolation','manual-acceptance','mobile-320-390','font-200-percent','literal-user-html'],liveProviderCalls:0,screenshots:dir},null,2));
+    await fs.writeFile(path.join(dir,'result.json'),JSON.stringify({passed:true,checks:['four-provider-key-only-setup','key-masking','csv-real-processing','download','task-refresh','model-tool-loop-mock','html-isolated-preview','preview-persistence','version-isolation','manual-acceptance','context-history','context-manual-review','context-feedback-overflow-pin','context-pin-remove-xss','context-metadata-export','context-zero-model-calls','context-mobile-320-390','mobile-320-390','font-200-percent','literal-user-html'],liveProviderCalls:0,screenshots:dir},null,2));
     console.log('Browser acceptance passed. '+dir);
   }finally{if(browser)await browser.close();server.kill();await new Promise(r=>server.once('exit',r));provider.closeAllConnections();await new Promise(r=>provider.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

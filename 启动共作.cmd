@@ -6,6 +6,6 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-echo Open http://127.0.0.1:4318 in your browser.
+echo Open the local address printed below in your browser.
 node server.mjs
 pause

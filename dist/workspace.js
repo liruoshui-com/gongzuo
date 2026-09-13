@@ -5,6 +5,7 @@
   const kindLabels={system:'工作区',tool:'本地工具',model:'模型调用',assistant:'AI 回复',user:'你的补充',question:'待你补充',plan:'计划',artifact:'成果',review:'验收',error:'执行提示'};
   let config, tasks=[], current=null, activeId=null, tab='activity', artifactId=null, timer, polling=false, draft={goal:'',preferences:'',criteria:'',materials:[]}, feedback={}, settingsDrafts={}, settingsService, preview=null, dialogMode='';
   let toastTimer, saveQueue=Promise.resolve();
+  let healthSequence=0,healthReport=null,healthKey='',contextRecordId='preflight',memoryDraft={};
   const api=async(path,method='GET',data)=>{let res;try{res=await fetch('/api/'+path,{method,headers:data===undefined?{}:{'Content-Type':'application/json'},body:data===undefined?undefined:JSON.stringify(data)});}catch{throw new Error('本地服务未连接。请运行启动脚本后重试，已保存的数据仍在本机。');}const result=await res.json();if(!res.ok)throw new Error(result.error||'操作失败');return result;};
   function toast(message){clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').hidden=false;toastTimer=setTimeout(()=>$('#toast').hidden=true,5500);}
   function status(s){return `<span class="status-badge ${esc(s)}">${esc(labels[s]||s)}</span>`;}
@@ -30,12 +31,13 @@
     if(!current)return;navigation();const running=current.status==='running';
     $('#workspace').innerHTML=`<div class="workspace-heading"><div><div class="row"><span class="eyebrow">真实任务工作区</span><span id="task-status">${status(current.status)}</span></div><h1>${esc(current.title)}</h1></div><div class="row"><a class="button secondary small" href="/api/tasks/${current.id}/export" download>导出任务</a><button class="button ${running?'secondary':'primary'}" id="run-task">${running?'停止执行':config.configured?'开始 / 继续执行':'配置 AI 后执行'}</button></div></div>
       <div class="task-grid"><section><div class="panel"><div class="row between"><h2>目标与个人选择</h2><span class="tag">已保存在本机</span></div><p class="brief-goal">${esc(current.goal)}</p><dl class="brief-meta"><div><dt>我的要求</dt><dd>${esc(current.preferences||'尚未填写，可随时补充')}</dd></div><div><dt>完成标准</dt><dd>${esc(current.criteria||'打开成果后，确认它能解决你的实际问题')}</dd></div></dl><details class="edit-brief"><summary>调整目标与要求</summary><form id="brief-form">${briefFields()}<button class="button secondary small" ${running?'disabled':''}>保存修改</button></form></details></div>
-      <div class="panel"><div class="tabs" role="tablist" aria-label="任务信息">${[['activity','协作过程'],['materials',`材料 ${current.materials.length}`],['plan','工作计划'],['usage','用量']].map(([id,label])=>`<button class="tab ${tab===id?'active':''}" role="tab" aria-selected="${tab===id}" data-tab="${id}">${label}</button>`).join('')}</div><div id="tab-surface" class="tab-surface"></div><form id="feedback-form" class="feedback">${field('message',current.questions.length?'补充关键信息':'补充信息，或说说哪里需要改',feedback[current.id]||'','例如：保留现在的简洁风格，增加按周查看的功能。',12000)}<div class="row between"><span class="help">会随下一轮执行一起使用</span><button class="button secondary small" ${running?'disabled':''}>保存补充</button></div></form></div></section>
+      <div class="panel"><div class="tabs" role="tablist" aria-label="任务信息">${[['activity','协作过程'],['materials',`材料 ${current.materials.length}`],['plan','工作计划'],['usage','用量'],['context','上下文体检']].map(([id,label])=>`<button class="tab ${tab===id?'active':''}" role="tab" aria-selected="${tab===id}" data-tab="${id}">${label}</button>`).join('')}</div><div id="tab-surface" class="tab-surface"></div><form id="feedback-form" class="feedback">${field('message',current.questions.length?'补充关键信息':'补充信息，或说说哪里需要改',feedback[current.id]||'','例如：保留现在的简洁风格，增加按周查看的功能。',12000)}<div class="row between"><span class="help">最近 12 条随下一轮执行使用；长期要求可在体检中固定</span><button class="button secondary small" ${running?'disabled':''}>保存补充</button></div></form></div></section>
       <section class="panel" id="deliveries" aria-label="成果与验收"></section></div>`;
     renderTab();renderArtifacts();
   }
   function renderTab(){
     const box=$('#tab-surface');if(!box||!current)return;
+    if(tab==='context'){void renderHealth(box);return;}
     if(tab==='activity')box.innerHTML=`${current.questions.length?`<div class="questions"><strong>需要你的判断</strong><ul>${current.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>`:''}<div class="timeline">${current.events.map(e=>`<div class="event ${esc(e.kind)}"><small>${esc(kindLabels[e.kind]||e.kind)} · ${new Date(e.at).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}</small><p>${esc(e.text)}</p></div>`).join('')}</div>`;
     if(tab==='materials')box.innerHTML=`<p class="help">原始材料保留。AI 执行时按需读取，不会把材料里的命令当作你的指令。</p>${current.materials.map(m=>`<div class="material-card"><div class="row between"><strong>${esc(m.name)}</strong>${/\.csv$/i.test(m.name)?`<button class="button secondary small" data-csv="${m.id}" ${current.status==='running'?'disabled':''}>本地处理 CSV</button>`:''}</div><details><summary>${m.content.length.toLocaleString()} 字符 · 查看原文</summary><pre>${esc(m.content.slice(0,5000))}${m.content.length>5000?'\n… 此处仅预览前 5,000 字符；导出任务包含全文。':''}</pre></details></div>`).join('')||'<p class="help">还没有材料，可以上传文件，也可以在下方补充文字。</p>'}<div class="upload-actions">${current.status==='running'?'<p class="help">请先停止执行，再添加材料。</p>':picker('more-files','＋ 补充材料')}</div>`;
     if(tab==='plan')box.innerHTML=current.plan.length?`<ol class="plan">${current.plan.map(s=>`<li>${esc(s)}</li>`).join('')}</ol><p class="help">计划由模型根据目标提出；具体执行请查看协作过程。</p>`:'<p class="help">开始 AI 执行后，会根据任务形成工作计划。本地 CSV 工具可以直接运行。</p>';
@@ -43,6 +45,16 @@
       const known=current.usage.filter(u=>u.input!==null&&u.output!==null),input=known.reduce((n,u)=>n+u.input,0),output=known.reduce((n,u)=>n+u.output,0),unknown=current.usage.length-known.length;
       box.innerHTML=`<div class="usage-grid"><div><strong>${current.usage.length}</strong><span>模型请求次数</span></div><div><strong>${input.toLocaleString()}</strong><span>已知输入 token</span></div><div><strong>${output.toLocaleString()}</strong><span>已知输出 token</span></div></div><p class="help">${unknown?`${unknown} 次请求的用量未知或尚未返回，以上不是完整总量。`:'记录服务商实际返回的用量。'}缓存和推理为明细，不重复叠加。金额未计算；联网工具费用另计。</p><div class="usage-lines"><table><thead><tr><th>模型 / 状态</th><th>输入</th><th>输出</th><th>缓存</th></tr></thead><tbody>${current.usage.map(u=>`<tr><td>${esc(u.model)}<br>${u.status==='returned'?'已返回':u.status==='returned-error'?'协议失败，用量已返回':u.status==='pending'?'等待返回':'未返回用量'}</td><td>${u.input??'未知'}</td><td>${u.output??'未知'}</td><td>${u.cached??'未返回'}</td></tr>`).join('')}</tbody></table></div><p class="help">本地 CSV 操作不调用模型。调用上限和 token 软上限可在模型设置中调整；软上限可能被最后一次请求超出。</p>`;
     }
+  }
+  async function renderHealth(box){
+    const task=current,sequence=++healthSequence;
+    const key=JSON.stringify([task.id,task.revision,task.status,task.usage.length,task.usage.at(-1)?.status,task.contextRecords?.length,task.contextRecords?.at(-1)?.id,config.model,config.provider,config.webSearch,config.configured]);
+    try{
+      if(!healthReport||healthKey!==key){if(!box.querySelector('.context-health'))box.innerHTML='<p class="help" role="status">正在本机检查请求记录…</p>';const report=await api('tasks/'+task.id+'/context-health');if(sequence!==healthSequence||!box.isConnected||current?.id!==task.id||tab!=='context')return;healthReport=report;healthKey=key;}
+      if(!box.isConnected||current?.id!==task.id||tab!=='context')return;
+      box.innerHTML=window.ContextHealth.render(task,healthReport,contextRecordId);
+      const input=box.querySelector('#memory-form [name="text"]');if(input)input.value=memoryDraft[task.id]||'';
+    }catch(error){if(sequence===healthSequence&&box.isConnected&&tab==='context')box.innerHTML=`<p class="error-line">${esc(error.message)}</p>`;}
   }
   function renderArtifacts(){
     const box=$('#deliveries');if(!box||!current)return;preview=null;
@@ -58,7 +70,7 @@
     }else{const pre=document.createElement('pre');pre.textContent=a.content;content.append(pre);}
   }
   async function refreshList(){tasks=await api('tasks');navigation();}
-  async function openTask(id){activeId=id;artifactId=null;const t=await api('tasks/'+id);if(activeId!==id)return;current=t;renderTask();try{localStorage.setItem('co-work-active-v2',id);}catch{}}
+  async function openTask(id){activeId=id;artifactId=null;contextRecordId='preflight';healthReport=null;const t=await api('tasks/'+id);if(activeId!==id)return;current=t;renderTask();try{localStorage.setItem('co-work-active-v2',id);}catch{}}
   async function mutate(action,data={},method='POST'){
     const id=current.id,result=await api('tasks/'+id+(action?'/'+action:''),method,{revision:current.revision,...data});
     await refreshList();if(activeId===id){current=result;renderTask();}return result;
@@ -79,17 +91,19 @@
   document.addEventListener('input',e=>{
     if(e.target.closest('#create-form')&&e.target.name)draft[e.target.name]=e.target.value;
     if(e.target.closest('#feedback-form'))feedback[current.id]=e.target.value;
+    if(e.target.closest('#memory-form'))memoryDraft[current.id]=e.target.value;
   });
   document.addEventListener('submit',async e=>{
-    const form=e.target;if(!['create-form','brief-form','feedback-form','settings-form','csv-form'].includes(form.id))return;e.preventDefault();const button=e.submitter;button.disabled=true;
+    const form=e.target;if(!['create-form','brief-form','feedback-form','settings-form','csv-form','memory-form'].includes(form.id))return;e.preventDefault();const button=e.submitter||form.querySelector('button[type="submit"]');if(button)button.disabled=true;
     try{
       const f=new FormData(form),b=Object.fromEntries(f);
       if(form.id==='create-form'){const t=await api('tasks','POST',{...b,materials:draft.materials});draft={goal:'',preferences:'',criteria:'',materials:[]};await refreshList();await openTask(t.id);toast('任务已保存，可以继续补材料或开始执行。');}
       if(form.id==='brief-form'){await mutate('',b,'PATCH');toast('目标与个人要求已更新。');}
+      if(form.id==='memory-form'){const id=current.id;await mutate('memory',b);memoryDraft[id]='';renderTab();toast('要求已固定，下次执行会带入每次请求。');}
       if(form.id==='feedback-form'){const id=current.id;await mutate('feedback',b);feedback[id]='';renderTask();toast('补充已保存，点击开始 / 继续执行使用它。');}
-      if(form.id==='settings-form'){settingsValues();config=await api('config','PUT',{...settingsDrafts[settingsService],service:settingsService});settingsDrafts={};navigation();$('#dialog').close();if(current)renderTask();else renderNew();toast('配置已保存。可测试连接，或回到任务开始执行。');}
+      if(form.id==='settings-form'){settingsValues();config=await api('config','PUT',{...settingsDrafts[settingsService],service:settingsService});settingsDrafts={};healthReport=null;healthKey='';navigation();$('#dialog').close();if(current)renderTask();else renderNew();toast('配置已保存。可测试连接，或回到任务开始执行。');}
       if(form.id==='csv-form'){await mutate('csv',{...b,materialId:form.dataset.material,trim:f.has('trim'),deduplicate:f.has('deduplicate')});$('#dialog').close();toast('表格与检查记录已生成，原始材料保留。');}
-    }catch(error){const id={'create-form':'create-error','settings-form':'settings-error','csv-form':'csv-error'}[form.id];if(id&&$('#'+id))$('#'+id).textContent=error.message;else toast(error.message);}finally{if(button.isConnected)button.disabled=false;}
+    }catch(error){const id={'create-form':'create-error','settings-form':'settings-error','csv-form':'csv-error'}[form.id];if(id&&$('#'+id))$('#'+id).textContent=error.message;else toast(error.message);}finally{if(button?.isConnected)button.disabled=false;}
   });
   document.addEventListener('click',async e=>{
     const b=e.target.closest('button');if(!b)return;
@@ -102,6 +116,13 @@
       if(b.dataset.service){settingsValues();renderSettings(b.dataset.service);return;}
       if(b.dataset.removeFile!==undefined){draft.materials.splice(Number(b.dataset.removeFile),1);draftFiles();return;}
       if(b.dataset.csv){showCSV(b.dataset.csv);return;}
+      if(b.dataset.action==='pin-feedback'){
+        const value=current.feedback[Number(b.dataset.index)]?.text;if(!value)return;
+        if(value.length>800){toast('这条补充超过 800 字符，请在固定要求中提炼最重要的约束。');$('#memory-form [name="text"]')?.focus();return;}
+        b.disabled=true;await mutate('memory',{text:value});toast('这条补充已固定，下次执行会带入每次请求。');return;
+      }
+      if(b.dataset.action==='remove-memory'){b.disabled=true;await mutate('memory/remove',{memoryId:b.dataset.memory});toast('已取消固定，下次执行生效。');return;}
+      if(b.dataset.action==='mark-context-review'){b.disabled=true;await mutate('context-review',{requestId:b.dataset.request,requirementId:b.dataset.requirement});toast('已保存人工标记，未调用模型；可在下方补充修改意见。');return;}
       if(b.dataset.starter){const examples={research:['比较三种适合小团队的知识管理方案，给出选择建议。','表达直接，重点说清楚取舍。','引用可靠来源，区分事实与判断；没有最新来源时明确说明。'],office:['整理这份 CSV，检查空值和重复记录，按部门汇总工时并导出图表。','保留原始数据，不自动填补缺失值。','行数和汇总能复核；导出的 CSV 可以继续编辑。'],product:['做一个适合我的碎片时间学习记录工具，可以记录学了什么，并按周查看。','界面简洁，语气温和；不用连续打卡惩罚。','打开即可使用，能添加、删除记录，刷新后数据还在。']};[draft.goal,draft.preferences,draft.criteria]=examples[b.dataset.starter];renderNew();return;}
       if(b.id==='run-task'){
         if(!config.configured){renderSettings();return;}b.disabled=true;
@@ -119,6 +140,7 @@
       if(e.target.id==='new-files'){const files=await readFiles(e.target.files);if(files.length+draft.materials.length>20)throw new Error('每个任务最多 20 份材料。');draft.materials.push(...files);draftFiles();e.target.value='';}
       if(e.target.id==='more-files'){const materials=await readFiles(e.target.files);if(materials.length)await mutate('materials',{materials});}
       if(e.target.id==='artifact-select'){artifactId=e.target.value;renderArtifacts();}
+      if(e.target.id==='context-record-picker'){contextRecordId=e.target.value;renderTab();}
       if(e.target.id==='accept-artifact')await mutate('accept',{artifactId,accepted:e.target.checked});
     }catch(error){toast(error.message);if(e.target.id==='accept-artifact')e.target.checked=!e.target.checked;}
   });

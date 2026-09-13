@@ -1,0 +1,63 @@
+/* Keep the extra task tab visible on narrow screens. */
+.task-grid .tabs{flex-wrap:wrap;overflow:visible;column-gap:18px;row-gap:0}
+/* Context health is a local, metadata-only view. */
+.context-health{min-width:0;max-width:100%;color:var(--ink,#1e2942);font-size:.875rem;line-height:1.75;overflow-wrap:anywhere}
+.context-health *{box-sizing:border-box;min-width:0}
+.context-health h3{font-size:1.05rem;margin:0;line-height:1.6}
+.context-health h4{font-size:.95rem;margin:0 0 10px;line-height:1.6}
+.context-health h5{font-size:.875rem;margin:0 0 7px;line-height:1.6}
+.context-health p{margin:7px 0 0;line-height:1.8}
+.context-health .ch-header{padding-bottom:6px}
+.context-health .ch-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:7px 12px}
+.context-health .ch-row h4{margin-bottom:0}
+.context-health .ch-help{font-size:.8125rem;color:var(--muted,#64718a);line-height:1.8}
+.context-health .ch-meta{font-size:.75rem;color:var(--muted,#64718a);line-height:1.75}
+.context-health .ch-section{border-top:1px solid var(--line,#e1e6ef);margin-top:20px;padding-top:18px}
+.context-health .ch-badge{display:inline-block;max-width:100%;padding:3px 8px;border-radius:5px;font-size:.75rem;line-height:1.6;background:#f0f3f8;color:#526079;white-space:normal}
+.context-health .ch-badge-included{color:#176653;background:#eaf5ef}
+.context-health .ch-badge-warning{color:#855020;background:#fff0df}
+.context-health .ch-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.context-health .ch-list{list-style:none;margin:12px 0 0;padding:0}
+.context-health .ch-list>li{padding:12px 0;border-top:1px solid #edf0f5}
+.context-health .ch-list>li:first-child{border-top:0;padding-top:0}
+.context-health .ch-list>li:last-child{padding-bottom:0}
+.context-health .ch-text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.875rem}
+.context-health .ch-file-name{display:block;overflow-wrap:anywhere;line-height:1.7;font-weight:550}
+.context-health .ch-empty{border:1px dashed var(--line,#e1e6ef);border-radius:8px;padding:12px;color:var(--muted,#64718a);font-size:.8125rem}
+.context-health .ch-action{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left;margin-top:9px;font-weight:500;font-size:.8125rem;min-height:36px}
+.context-health .ch-memory-list>li{background:#f8f9fc;border:1px solid #e7ebf3;border-radius:8px;margin:8px 0;padding:11px 12px}
+.context-health .ch-memory-list>li:first-child,.context-health .ch-memory-list>li:last-child{padding:11px 12px;border:1px solid #e7ebf3}
+.context-health .ch-memory-list .ch-text{margin-top:0}
+.context-health .ch-memory-list .ch-action{min-height:32px;padding:4px 9px;font-size:.75rem}
+.context-health .ch-memory-form{margin-top:15px}
+.context-health .ch-memory-form label,.context-health .ch-picker-label{display:block;font-size:.8125rem;font-weight:550;margin-bottom:7px}
+.context-health .ch-form-row{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.context-health .ch-form-row input{flex:1 1 180px;width:0;max-width:100%;border:1px solid #d6deeb;border-radius:8px;padding:9px 11px;background:#fff;color:var(--ink,#1e2942);font-size:.875rem;line-height:1.6}
+.context-health .ch-form-row .button{flex:0 1 auto;white-space:normal;max-width:100%;font-size:.8125rem}
+.context-health .ch-picker{display:block;width:100%;max-width:100%;border:1px solid #d6deeb;background:#fff;color:var(--ink,#1e2942);border-radius:8px;font-size:.8125rem;padding:10px 28px 10px 10px;text-overflow:ellipsis;line-height:1.6}
+.context-health .ch-picker option{max-width:100%}
+.context-health .ch-notice{background:#f4f6fb;border-radius:8px;padding:10px 12px;font-size:.8125rem;color:#56647d;margin-top:12px;line-height:1.8}
+.context-health .ch-notice p:first-child{margin-top:0}
+.context-health .ch-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:8px;margin:14px 0 0}
+.context-health .ch-metrics>div{border:1px solid var(--line,#e1e6ef);border-radius:8px;padding:12px}
+.context-health .ch-metrics dt{font-size:.75rem;color:var(--muted,#64718a)}
+.context-health .ch-metrics dd{margin:5px 0 0;font-size:1.15rem;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.context-health .ch-metrics p{font-size:.75rem;color:var(--muted,#64718a);margin:4px 0 0}
+.context-health .ch-findings{margin-top:14px;border-left:3px solid #c8d3e7;padding:1px 0 1px 12px}
+.context-health .ch-findings ul{margin:0;padding-left:18px}
+.context-health .ch-findings li{margin:6px 0;font-size:.8125rem;line-height:1.8}
+.context-health .ch-findings .ch-finding-warning{color:#855020}
+.context-health .ch-attention{border-top-color:#eadcc9}
+.context-health .ch-attention h4{color:#855020}
+.context-health details{margin-top:10px;max-width:100%}
+.context-health summary{cursor:pointer;color:#52617c;font-size:.8125rem;line-height:1.8;overflow-wrap:anywhere;padding:3px 0}
+.context-health .ch-text-details .ch-text{background:#f7f8fb;padding:10px 12px;border-radius:7px;margin-top:7px}
+.context-health .ch-read-details ul{margin:5px 0 0;padding-left:20px;font-size:.75rem;color:var(--muted,#64718a);line-height:1.8}
+.context-health .ch-artifact-index{border-top:1px solid var(--line,#e1e6ef);padding-top:10px;margin-top:14px}
+.context-health .ch-read-summary{margin-top:14px;border-top:1px solid #edf0f5;padding-top:10px}
+.context-health .ch-manual-review{margin-top:10px;border-radius:7px;background:#fff6ec;padding:9px 11px;font-size:.8125rem;color:#855020}
+.context-health .ch-manual-review .ch-help{color:#765e44}
+.context-health .ch-footer{border-top:1px solid var(--line,#e1e6ef);margin-top:20px;padding-top:12px}
+.context-health .ch-export{display:inline-block;margin-top:8px;font-size:.8125rem;max-width:100%;overflow-wrap:anywhere}
+.context-health :is(button,input,select,a,summary):focus-visible{outline:3px solid #87a1ff;outline-offset:3px}
+@media(max-width:420px){.context-health .ch-form-row{display:grid;grid-template-columns:minmax(0,1fr)}.context-health .ch-form-row input{width:100%}.context-health .ch-form-row .button{width:100%}.context-health .ch-metrics{grid-template-columns:minmax(0,1fr)}.context-health .ch-row{gap:6px}.context-health .ch-header .ch-row{display:grid;grid-template-columns:minmax(0,1fr)}.context-health .ch-header .ch-badge{justify-self:start}.context-health .ch-action{padding:7px 9px}}

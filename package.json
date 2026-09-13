@@ -1,6 +1,6 @@
 {
   "name": "gongzuo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "A local AI task workspace aiming for less token waste and rework while preserving your personal requirements.",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "scripts": {
     "start": "node server.mjs",
     "check": "node scripts/check.mjs",
-    "test": "node --test tests/runtime.test.mjs"
+    "test": "node --test tests/runtime.test.mjs tests/context-health.test.mjs tests/context-api.test.mjs"
   },
   "engines": { "node": ">=22" }
 }

@@ -12,7 +12,7 @@ A local AI task workspace for people who want useful results without becoming pr
 
 ![The actual task workspace before configuring a model](assets/overview.png)
 
-**Early preview, v0.2.0.** Provider adapters, task tools and artifact workflows are implemented. Tests use mock provider responses; live-provider task quality and token savings have **not** been demonstrated.
+**Early preview, v0.3.0.** Adds local context health checks and pinned requirements. Provider adapters, task tools and artifact workflows are implemented. Tests use mock provider responses; live-provider task quality and token savings have **not** been demonstrated.
 
 ## The goal
 
@@ -27,6 +27,8 @@ Help people finish research, writing, office and small product tasks with less t
 - Plans, clarification pauses, cancellation, artifact versions and manual acceptance.
 - Sandboxed HTML previews with per-version data; standalone downloads include saved preview data.
 - Per-request provider-reported token usage. Missing usage remains unknown. Connection tests have their own history.
+- Context preflight without a key or model call; request metadata shows omitted older feedback, included requirements and overlapping file reads. Important requirements can be pinned to subsequent requests.
+- Human reports distinguish an included requirement that was not followed from an omitted input. Metadata exports omit prompt bodies, API headers and model reasoning.
 
 Context still accumulates during a run; there is no automatic compaction, model routing or patch-based artifact editing yet. These mechanisms are a starting point, not evidence of measured savings.
 
@@ -42,9 +44,15 @@ npm start
 
 Open **http://127.0.0.1:4318**. The interface is currently in Chinese. On Windows, `启动共作.cmd` is also available.
 
+If the OS reserves the default port, the server tries 14318; use the address printed at startup. An explicit `PORT` environment variable is honored without fallback.
+
 Choose a provider in the top-right settings, paste its API key, and save. Defaults are prefilled and each provider's key is stored separately. Saving does not call a model; connection testing does and records its usage.
 
 No API key yet? Upload `examples/团队工时.csv`, run the local CSV tool, and export real tables and charts.
+
+The **上下文体检** (context health) tab also works without a key. A fresh run includes the goal, preferences, criteria, pinned requirements, the latest 12 feedback entries and file indexes. Prior replies and tool results are not automatically carried into a new run. During a run, successful read receipts are counted only from the next request that includes their output. CSV analysis is local processing with a model-visible summary, not a full-text read.
+
+The last 120 request records contain IDs, hashes, sizes and read ranges, not full prompts. Old requests without records remain unknown. Character counts are not token counts, and inclusion does not prove comprehension, server retention or compliance. Pinning adds input length; keep requirements short. No model calls are added by inspection, pinning, manual reports or export.
 
 ## Boundaries
 
